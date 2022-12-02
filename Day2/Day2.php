@@ -8,9 +8,6 @@ class Day2
     public $p2;
     public $values;
     public $score;
-    public $loses;
-    public $wins;
-    public $draw;
     public $condition;
     public $playerScore;
     public $scoresPart2;
@@ -28,18 +25,14 @@ class Day2
             "Z" => array("Rock" => "Paper", "Scissors" => "Rock", "Paper" => "Scissors"));
         $this->playerScore = 0;
         $this->scoresPart2 = 0;
-        foreach($this->f as $e){
-            $temp =  explode(" ", $e);
-            $temp[1] = rtrim($temp[1]);
-            $this->k[] = $temp;
-
-        }
     }
 
 
     public function part1()
     {
-        foreach ($this->k as $t) {
+        foreach ($this->f as $e) {
+            $t = explode(" ", $e);
+            $t[1] = rtrim($t[1]);
             $result = $this->values[$this->p1[$t[0]]] - $this->values[$this->p2[$t[1]]];
             $this->playerScore += $this->score[$result] + $this->values[$this->p2[$t[1]]];
         }
@@ -49,12 +42,12 @@ class Day2
 
     public function part2()
     {
-        foreach ($this->k as $t) {
+        foreach ($this->f as $e) {
+            $t = explode(" ", $e);
+            $t[1] = rtrim($t[1]);
             $move = $this->condition[$t[1]];
             $p1Select = $this->p1[$t[0]];
-            $player1 = $this->values[$p1Select];
-            $player2 = $this->values[$move[$p1Select]];
-            $this->scoresPart2 += $this->score[$player1 - $player2] + $this->values[$move[$p1Select]];
+            $this->scoresPart2 += $this->score[$this->values[$p1Select] - $this->values[$move[$p1Select]]] + $this->values[$move[$p1Select]];
         }
         return $this->scoresPart2;
     }
