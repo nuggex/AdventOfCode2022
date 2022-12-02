@@ -25,8 +25,8 @@ class Day2
     {
         $temp = 0;
         foreach ($this->f as $e) {
-            $t = explode(" ", $e);
-            $temp += $this->score[$this->p2[$t[0]] - ($p1 = $this->p1[$t[1]])] + $p1;
+//            $t = explode(" ", $e);
+            $temp += $this->score[$this->p2[$e[0]] - ($p1 = $this->p1[$e[2]])] + $p1;
         }
         return $temp;
     }
@@ -35,8 +35,8 @@ class Day2
     {
         $temp = 0;
         foreach ($this->f as $e) {
-            $t = explode(" ", $e);
-            $temp += $this->score[($p1Value = $this->p2[$t[0]]) - ($val = $this->conv[$t[1]][$p1Value])] + $val;
+//            $t = explode(" ", $e);
+            $temp += $this->score[($p1Value = $this->p2[$e[0]]) - ($val = $this->conv[$e[2]][$p1Value])] + $val;
         }
         return $temp;
     }
