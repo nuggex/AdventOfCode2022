@@ -6,28 +6,33 @@
  * PHP 8.1.12
  */
 $x = 0;
-$runs = array(1,10000,100000);
+$runs = array(1, 10000, 100000);
 foreach ($runs as $run) {
-    $t = microtime(true);
     $f = file("i.txt");
+
+    $t = microtime(true);
     while ($x < $run) {
-        $top3 = [];
+
         $top = 0;
         $e = [];
         $sum = 0;
+
         foreach ($f as $v) {
-            if (($v != "\r\n")) {
+            if ($v != "\n") {
                 $sum += $v;
                 continue;
             }
-
-            $e[] = $sum;
+            $e[$sum] = $sum;
             $sum = 0;
 
         }
-        $top1 = array_splice($e, max($e));
-        $top2 = array_splice($e, max($e));
-        $top = $top1 + $top2 + max($e);
+
+        $top1 = max($e);
+        $e[$top1] = 0;
+        $top2 = max($e);
+        $e[$top2] = 0;
+        $top3 = max($e);
+        $top = $top1 + $top2 + $top3;
         $x++;
     }
     $runtime = (microtime(true) - $t) / $run;
