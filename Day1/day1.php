@@ -14,24 +14,22 @@ foreach ($runs as $run) {
         $top3 = [];
         $top = 0;
         $e = [];
-        $i = 0;
         $sum = 0;
         foreach ($f as $v) {
-            if ($v !== "\n") {
+            if (($v != "\r\n")) {
                 $sum += $v;
-            }else{
-                $e[$i] = $sum;
-                $sum = 0;
-                $i++;
+                continue;
             }
+
+            $e[] = $sum;
+            $sum = 0;
+
         }
-        $top3[0] = max($e);
-        $e[array_search($top3[0], $e)] = 0;
-        $top3[1] = max($e);
-        $e[array_search($top3[1], $e)] = 0;
-        $top = $top3[0] + $top3[1] + max($e);
+        $top1 = array_splice($e, max($e));
+        $top2 = array_splice($e, max($e));
+        $top = $top1 + $top2 + max($e);
         $x++;
     }
     $runtime = (microtime(true) - $t) / $run;
-    echo "Most calories: $top3[0] \nTop 3 total:  $top \n$run run average per run : $runtime . \n\n";
+    echo "Most calories: $top1 \nTop 3 total:  $top \n$run run average per run : $runtime . \n\n";
 }
