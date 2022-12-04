@@ -2,7 +2,7 @@
 
 class Day3
 {
-    private $f;
+    private array|false $f;
     function __construct()
     {
         $this->f = file(dirname(__FILE__) . "/i.txt", FILE_IGNORE_NEW_LINES);
