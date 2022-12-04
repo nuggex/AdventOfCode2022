@@ -2,17 +2,14 @@
 
 class Day2
 {
-    public $f;
-    public $p1;
-    public $p2;
-    public $values;
-    public $score;
-    public $conv;
-    public $pa1;
-    public $pa2;
+    public array|false $f;
+    public array $values;
+    public array $pa1;
+    public array $pa2;
+
     public function __construct()
     {
-       $this->pa1 = array(
+        $this->pa1 = array(
             "A X" => 4,
             "A Y" => 8,
             "A Z" => 3,
@@ -36,18 +33,21 @@ class Day2
             "C Z" => 7
         );
         $this->f = file(dirname(__FILE__) . "/i.txt", FILE_IGNORE_NEW_LINES);
-}
-    public function part1(){
+    }
+
+    public function part1()
+    {
         $temp = 0;
-        foreach($this->f as $e){
+        foreach ($this->f as $e) {
             $temp += $this->pa1[$e];
         }
         return ($temp);
     }
 
-    public function part2(){
+    public function part2()
+    {
         $temp = 0;
-        foreach($this->f as $e){
+        foreach ($this->f as $e) {
             $temp += $this->pa2[$e];
         }
         return ($temp);
@@ -72,8 +72,6 @@ class Day2
         return $temp;
     }
     */
-}
-}
 /*
 class Day2
 {

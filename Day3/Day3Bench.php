@@ -4,11 +4,11 @@ require_once "Day3.php";
 
 class Day3Bench
 {
-    public $day3;
+    public Day3 $day3;
 
     public function __construct()
     {
-        $this->day3 = new Day2;
+        $this->day3 = new Day3;
     }
 
     public function benchPart1()
