@@ -4,77 +4,68 @@ class Day5
 {
 
 
-    private $f;
-    private $filename;
+    private string $filename;
     private array|false $file;
+    private array|false $moves;
+    private array|false $cols;
 
     public function __construct()
     {
         $this->filename = dirname(__FILE__) . "/i.txt";
-        $this->f = fopen($this->filename, "r");
         $this->file = file($this->filename, FILE_IGNORE_NEW_LINES);
-
     }
 
-    public function Part1()
+    public function Part1(): string
     {
-        $input = [];
-        $moves = [];
-        $max = 0;
-        $cols = [];
+        $this->loadData();
+        foreach ($this->moves as $move) {
+            for ($i = 0; $i < $move[1]; $i++) {
+                array_splice($this->cols[$move[5] - 1], 0, 0, array_shift($this->cols[$move[3] - 1]));
+            }
+        }
+        $answer = "";
+        for ($i = 0; $i < count($this->cols); $i++) {
+            $answer .= $this->cols[$i][0];
+        }
+        return $answer;
+    }
+
+    public function Part2(): string
+    {
+        $this->loadData();
+        foreach ($this->moves as $move) {
+            $temp = [];
+            for ($i = 0; $i < $move[1]; $i++) {
+                $temp[] = array_shift($this->cols[$move[3] - 1]);
+            }
+            array_splice($this->cols[$move[5] - 1], 0, 0, $temp);
+        }
+        $answer = "";
+        for ($i = 0; $i < count($this->cols); $i++) {
+            $answer .= $this->cols[$i][0];
+        }
+        return $answer;
+    }
+
+    private function loadData()
+    {
         $isMove = false;
+        $this->cols = [];
+        $this->moves = [];
         foreach ($this->file as $row) {
-            if ($row[1] == "1") {
-                $max = max(explode(" ", $row));
-                $cols = explode(" ", $row);
+            if (!$isMove && $row[1] == "1") {
                 $isMove = true;
                 continue;
             }
-
+            if (!$isMove) {
+                $rowC = str_split($row, 4);
+                foreach ($rowC as $key => $r) {
+                    if ($r !== "    ") $this->cols[$key][] = $r;
+                }
+            }
             if ($isMove && !empty($row)) {
-                $moves[] = explode(" ", $row);
-            } elseif (!empty($row)) {
-                $input[] = $row;
-            }
-
-        }
-        $cols = array_values(array_unique(array_filter($cols)));
-        $values = [];
-        $input = array_reverse($input);
-        foreach ($cols as $col) {
-
-            if (str_contains($input[$col - 1], "   ")) {
-                $temp = explode("   ", $input[$col - 1], $max);
-            } else {
-                $temp = explode(" ", $input[$col - 1], $max);
-            }
-            $values[$col] = $temp;
-        }
-        $columns = [];
-        var_dump($values);
-        for($i = 1; $i <=$max;$i++){
-            if(isset($values[1][$i+1])){
-                $columns[1][$i] = $values[1][$i+1];
-            }
-            if(isset($values[2][$i+1])){
-                $columns[2][$i] = $values[2][$i+1];
-            }
-            if(isset($values[3][$i+1])){
-                $columns[3][$i] = $values[3][$i+1];
+                $this->moves[] = explode(" ", $row);
             }
         }
-        var_dump($columns);
-        foreach($moves as $move){
-            for($i = 0; $i <$move[1];$i++){
-                exit;
-                //$offset = max($values[$values[$move[3]]);
-               // var_dump($offset);
-                //$movable = array_splice($values[$move[3]], max($values[$move[3]]),1);
-                //var_dump($movable);
-                //$values[$move[5]][] = $movable;
-            }
-        }
-        //var_dump($values);
-
     }
 }
