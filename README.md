@@ -41,7 +41,10 @@
 
 #Day5
 
-### TBD 
+| iter | benchmark | subject    | set | revs  | mem_peak | time_avg  | comp_z_value | comp_deviation |
+|------|-----------|------------|-----|-------|----------|-----------|--------------|----------------|
+| 0    | Day5Bench | benchPart1 |     | 10000 | 756,608b | 941.389μs | 0.00σ        |0.00%         |
+| 0    | Day5Bench | benchPart2 |     | 10000 | 756,608b | 621.572μs | 0.00σ        |0.00%         |
 
 
 #Day6
