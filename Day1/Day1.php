@@ -13,7 +13,7 @@ class Day1
         $x = 0;
         $runs = array(1, 10000, 100000);
         foreach ($runs as $run) {
-            $f = file("i.txt");
+            $f = file(dirname(__FILE__) ."/i.txt");
 
             $t = microtime(true);
             while ($x < $run) {
