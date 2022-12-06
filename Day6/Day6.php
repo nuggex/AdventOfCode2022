@@ -3,17 +3,14 @@
 class Day6
 {
 
-    private $f;
-    private $filename;
     private array|false $file;
-    private int $cond;
-    private $result;
+    private string $filename;
+    private array $result;
+
     public function __construct()
     {
         $this->filename = dirname(__FILE__) . "/i.txt";
-        $this->f = fopen($this->filename, "r");
         $this->file = file($this->filename, FILE_IGNORE_NEW_LINES);
-        $this->cond = 14;
         $this->result = array_values(str_split($this->file[0]));
 
     }
@@ -23,8 +20,8 @@ class Day6
         $checkArray = [];
         foreach ($this->result as $key => $un) {
             if ($key > 3) {
-                $test = array_slice($checkArray, $key-4,4);
-                if(count(array_unique($test)) === count($test)){
+                $test = array_slice($checkArray, $key - 4, 4);
+                if (array_unique($test) === $test) {
                     return "\nCheck key: " . $key;
                 }
             }
@@ -37,8 +34,8 @@ class Day6
         $checkArray = [];
         foreach ($this->result as $key => $un) {
             if ($key > 13) {
-                $test = array_slice($checkArray, $key-14,14);
-                if(count(array_unique($test)) === count($test)){
+                $test = array_slice($checkArray, $key - 14, 14);
+                if (array_unique($test) === $test) {
                     return "\nCheck key: " . $key;
                 }
             }
