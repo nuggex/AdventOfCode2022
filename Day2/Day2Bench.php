@@ -4,7 +4,7 @@ require_once "Day2.php";
 
 class Day2Bench
 {
-    public $day2;
+    public Day2 $day2;
 
     public function __construct()
     {
