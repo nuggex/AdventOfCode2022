@@ -50,13 +50,31 @@ class Day5
             }
             $values[$col] = $temp;
         }
+        $columns = [];
         var_dump($values);
-        var_dump($moves);
-        foreach($moves as $move){
-            for($i = 0; $i <$move[1];$i++){
+        for($i = 1; $i <=$max;$i++){
+            if(isset($values[1][$i+1])){
+                $columns[1][$i] = $values[1][$i+1];
+            }
+            if(isset($values[2][$i+1])){
+                $columns[2][$i] = $values[2][$i+1];
+            }
+            if(isset($values[3][$i+1])){
+                $columns[3][$i] = $values[3][$i+1];
             }
         }
-        var_dump($values);
+        var_dump($columns);
+        foreach($moves as $move){
+            for($i = 0; $i <$move[1];$i++){
+                exit;
+                //$offset = max($values[$values[$move[3]]);
+               // var_dump($offset);
+                //$movable = array_splice($values[$move[3]], max($values[$move[3]]),1);
+                //var_dump($movable);
+                //$values[$move[5]][] = $movable;
+            }
+        }
+        //var_dump($values);
 
     }
 }
