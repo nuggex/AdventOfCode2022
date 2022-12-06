@@ -27,6 +27,7 @@ class Day6
             }
             $checkArray[] = $un;
         }
+        return false;
     }
 
     public function Part2()
@@ -41,5 +42,6 @@ class Day6
             }
             $checkArray[] = $un;
         }
+        return false;
     }
 }
