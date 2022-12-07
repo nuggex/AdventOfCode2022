@@ -24,6 +24,7 @@ class Day7
         $previousFolder = "/";
         $currentFolder = "";
         $insertCommand = false;
+        $files = [];
         foreach ($this->file as $key => $line) {
             $newCommand = false;
 
@@ -55,46 +56,48 @@ class Day7
                     }
                     if (is_numeric($explode[0])) {
                         if ($previousFolder && $previousFolder != $currentFolder) {
+                            $files[$previousFolder . $currentFolder . "-" . $explode[1]] = $explode[0];
                             $insert[$previousFolder][$currentFolder][$explode[1]] = array("dir" => $currentFolder, "size" => $explode[0], "parent" => $previousFolder);
                         } else {
                             $insert[$currentFolder][$explode[1]] = array("dir" => $currentFolder, "size" => $explode[0]);
+                            $files[$currentFolder . "-" . $explode[1]] = $explode[0];
                         }
                     }
                 }
             }
             if ($key !== 0 && !empty($insert)) {
-                if(!isset($insert["/"])) $insert = array("/" => $insert);
+                if (!isset($insert["/"])) $insert = array("/" => $insert);
                 $data = array_merge_recursive($data, $insert);
                 $insert = array();
             }
         }
-        return $data;
+        return array($data, $files);
     }
 
-    public function Part1(){
-        $data = $this->LoadData();
-
-        $keys = array_keys($data);
-        $sums = [];
-        $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($data));
-        $keys = [];
-        foreach($iterator as $key=>$value){
-            if(strlen($value) === 1) $keys[] = $value;
+    public function Part1()
+    {
+        $load = $this->LoadData();
+        $test = $load[0];
+        $data = $load[1];
+        $folderKeys = [];
+        $foldervalues = [];
+        foreach ($data as $key => $values) {
+            $folder = explode("-", $key);
+            if (str_contains($folder[0], "/")) {
+                $folderKeys[$key] = $values;
+                $foldervalues[] = explode("-",$key)[0];
+            } else {
+                $folderKeys["/" . $key] = $values;
+                $foldervalues[] = "/" . explode("-",$key)[0];
+            }
         }
-
-        $keys = array_unique($keys);
-
-        $iter = new ArrayIterator($data);
-        foreach($iter as $value){
-            var_dump($value);
-            /*foreach($data as $key=>$value){
-                var_dump($value);
-            }*/
+        $folderSums = [];
+        foreach ($folderKeys as $key => $value) {
+            if ((int)$value <= 100000) {
+                $folderSums[$key] = $value;
+            }
         }
-
-        var_dump($sums);
-
-
+        var_dump($folderSums);
     }
 
 }
